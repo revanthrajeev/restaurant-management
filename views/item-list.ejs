@@ -1,0 +1,174 @@
+<%- include('header') -%>
+
+<div class="page-wrapper">
+  <div class="content">
+    <div class="page-header">
+      <div class="page-title">
+        <h4>Product List</h4>
+        <h6>Manage your products</h6>
+      </div>
+      <div class="page-btn">
+        <a href="/addmenupage" class="btn btn-added">
+          <img src="assets/img/icons/plus.svg" alt="img" class="me-1">Add New Item
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="table-top">
+          <div class="search-set">
+            <div class="search-path">
+              <a class="btn btn-filter" id="filter_search">
+                <img src="assets/img/icons/filter.svg" alt="img">
+                <span><img src="assets/img/icons/closes.svg" alt="img"></span>
+              </a>
+            </div>
+            <div class="search-input">
+              <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>
+            </div>
+          </div>
+          <div class="wordset">
+            <ul>
+              <li>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
+                  <img src="assets/img/icons/pdf.svg" alt="img">
+                </a>
+              </li>
+              <li>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                  <img src="assets/img/icons/excel.svg" alt="img">
+                </a>
+              </li>
+              <li>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
+                  <img src="assets/img/icons/printer.svg" alt="img">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="filter-options" style="display:none;">
+  <form id="filterForm" method="GET" action="/productlist">
+    <div class="row">
+      <div class="col-lg col-sm-6 col-12">
+        <div class="form-group">
+          <select class="select" name="category">
+            <option value="">Choose Category</option>
+            <option value="Veg" <%= (typeof category !== 'undefined' && category === 'Veg') ? 'selected' : '' %>>Veg</option>
+            <option value="Non-Veg" <%= (typeof category !== 'undefined' && category === 'Non-Veg') ? 'selected' : '' %>>Non-Veg</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg col-sm-6 col-12">
+        <div class="form-group">
+          <select class="select" name="subCategory">
+            <option value="">Choose Sub Category</option>
+            <option value="Main Course" <%= (typeof subCategory !== 'undefined' && subCategory === 'Main Course') ? 'selected' : '' %>>Main Course</option>
+            <option value="Soup" <%= (typeof subCategory !== 'undefined' && subCategory === 'Soup') ? 'selected' : '' %>>Soup</option>
+            <option value="Beverage" <%= (typeof subCategory !== 'undefined' && subCategory === 'Beverage') ? 'selected' : '' %>>Beverage</option>
+            <option value="Salad" <%= (typeof subCategory !== 'undefined' && subCategory === 'Salad') ? 'selected' : '' %>>Salad</option>
+            <option value="Rice" <%= (typeof subCategory !== 'undefined' && subCategory === 'Rice') ? 'selected' : '' %>>Rice</option>
+            <option value="Roti" <%= (typeof subCategory !== 'undefined' && subCategory === 'Roti') ? 'selected' : '' %>>Roti</option>
+            <option value="Dessert" <%= (typeof subCategory !== 'undefined' && subCategory === 'Dessert') ? 'selected' : '' %>>Dessert</option>
+            <option value="Juice" <%= (typeof subCategory !== 'undefined' && subCategory === 'Juice') ? 'selected' : '' %>>Juice</option>
+            <option value="Side Dish" <%= (typeof subCategory !== 'undefined' && subCategory === 'Side Dish') ? 'selected' : '' %>>Side Dish</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg col-sm-6 col-12 ">
+        <div class="form-group">
+          <input 
+            type="text" 
+            class="form-control" 
+            name="price" 
+            placeholder="Enter Price" 
+            value="<%= typeof price !== 'undefined' ? price : '' %>" 
+          />
+        </div>
+      </div>
+      <div class="col-lg-1 col-sm-6 col-12">
+        <div class="form-group">
+          <button type="submit" class="btn btn-filters ms-auto">
+            <img src="assets/img/icons/search-whites.svg" alt="img">
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+        <div class="table-responsive">
+          <table class="table datanew">
+            <thead>
+              <tr>
+                <th>
+                  <label class="checkboxs">
+                    <input type="checkbox" id="select-all">
+                    <span class="checkmarks"></span>
+                  </label>
+                </th>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Price</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% menus.forEach(menu => { %>
+              <tr>
+                <td>
+                  <label class="checkboxs">
+                    <input type="checkbox">
+                    <span class="checkmarks"></span>
+                  </label>
+                </td>
+                <td class="productimgname">
+                  <a href="javascript:void(0);"><%= menu.item %></a>
+                </td>
+                <td><%= menu.category %></td>
+                <td><%= menu.subCategory %></td>
+                <td><%= menu.price.toFixed(2) %></td>
+                <td>
+                  <a class="me-3" href="editproduct.html">
+                    <img src="assets/img/icons/edit.svg" alt="img">
+                  </a>
+                  <a class="confirm-text" href="javascript:void(0);">
+                    <img src="assets/img/icons/delete.svg" alt="img">
+                  </a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="assets/js/feather.min.js"></script>
+<script src="assets/js/jquery.slimscroll.min.js"></script>
+<script src="assets/js/jquery.dataTables.min.js"></script>
+<script src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/plugins/select2/js/select2.min.js"></script>
+<script src="assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="assets/plugins/sweetalert/sweetalerts.min.js"></script>
+<script src="assets/js/script.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#filter_search').click(function(e) {
+      e.preventDefault();
+      $('.filter-options').slideToggle();
+    });
+  });
+</script>
+
+</body>
+</html>
